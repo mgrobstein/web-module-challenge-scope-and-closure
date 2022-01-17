@@ -84,10 +84,10 @@ Use the finalScore function below to do the following:
 }
 */ 
 
-function finalScore(inningCB, number){
+function finalScore(inningCB, inning){
   let homeScore = 0;
   let awayScore = 0;
-  for (let i = 0; i < number; i++){
+  for (let i = 0; i < inning; i++){
     homeScore = homeScore + inningCB()
     awayScore = awayScore + inningCB()
   }
@@ -102,8 +102,11 @@ Use the getInningScore() function below to do the following:
   1. Receive a callback function - you will pass in the inning function from task 2 as your argument 
   2. Return an object with a score for home and a score for away that populates from invoking the inning callback function */
 
-function getInningScore(callBack) {
-  return finalScore();
+function getInningScore(inningCB) {
+  return {
+    Home: inningCB(),
+    Away: inningCB()
+  };
 }
 
 
@@ -148,26 +151,25 @@ Use the scoreboard function below to do the following:
 ]  
   */
 
-function scoreboard(InningScoreCB, inningCB, innings) {
+function scoreboard(InningScoreCB, inningCB, numInnings) {
   const scoreByInning = [];
   let homeScore = 0;
   let awayScore = 0;
 
-  for (i = 0; i< innings; i++) {
+  for (let i = 0; i< numInnings; i++) {
     const currentInning = InningScoreCB(inningCB);
-    homeScore = homeScore + currentInning.homeScore
-    awayScore = awayScore + currentInning.awayScore
-    scoreByInning.push(`Inning ${i+1}: Away `+currentInning.awayScore+` - Home `+currentInning.homeScore)
+    homeScore = homeScore + currentInning.Home
+    awayScore = awayScore + currentInning.Away
+    scoreByInning.push(`Inning ${i+1}: Away ` + currentInning.Away + ` - Home `+currentInning.Home)
   }
   if (homeScore == awayScore){
-    scoreByInning.push(`This game will require innings: Away `+currentInning.awayScore+` - Home `+currentInning.homeScore)
+    scoreByInning.push(`This game will require innings: Away `+currentInning.Away+` - Home `+currentInning.Home)
   }
   else{
     scoreByInning.push(`Final Score: Away: ${awayScore} - Home: ${homeScore}`)
   }
   return scoreByInning;
 }
-console.log('Task 4', scoreboard(getInningScore, inning, 9))
 
 
 
