@@ -28,11 +28,14 @@ console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
   Study the code for counter1 and counter2, then answer the questions below.
   
   1. What is the difference between counter1 and counter2?
+ counter1 contains a separate counter which exists inside a callback function
   
   2. Which of the two uses a closure? How can you tell?
+  counter2 uses a closure because it's inner function calls the higher order function before being called.
   
   3. In what scenario would the counter1 code be preferable? In what scenario would 
-     counter2 be better?  
+     counter2 be better? 
+     I'll be honest, I don't really know. I can't think of a situation where the results would be different. 
 */
 
 // counter1 code
@@ -52,7 +55,6 @@ function counter2() {
   return count++;
 }
 
-
 /* ⚾️⚾️⚾️ Task 2: inning() ⚾️⚾️⚾️
 Use the inning function below to do the following:
   1. Return a random whole number of points between 0 and 2 scored by one team in an inning
@@ -62,8 +64,9 @@ Use the inning function below to do the following:
 NOTE: This will be a callback function for the tasks below
 */
 
-function inning(/*Code Here*/){
-    /*Code Here*/
+function inning(){
+    let score = Math.floor(Math.random() * 2)
+    return score;
 }
 
 
@@ -81,8 +84,17 @@ Use the finalScore function below to do the following:
 }
 */ 
 
-function finalScore(/*code Here*/){
-  /*Code Here*/
+function finalScore(inningCB, number){
+  let homeScore = 0;
+  let awayScore = 0;
+  for (let i = 0; i < number; i++){
+    homeScore = homeScore + inningCB()
+    awayScore = awayScore + inningCB()
+  }
+  return {
+    Home: homeScore,
+    Away: awayScore
+  };
 }
 
 /* ⚾️⚾️⚾️ Task 4: getInningScore() ⚾️⚾️⚾️
@@ -90,8 +102,8 @@ Use the getInningScore() function below to do the following:
   1. Receive a callback function - you will pass in the inning function from task 2 as your argument 
   2. Return an object with a score for home and a score for away that populates from invoking the inning callback function */
 
-function getInningScore(/*Your Code Here */) {
-  /*Your Code Here */
+function getInningScore(callBack) {
+  return finalScore();
 }
 
 
